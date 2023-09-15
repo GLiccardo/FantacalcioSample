@@ -9,6 +9,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import it.fantacalcio.sample.FantacalcioSampleApplication
+import it.fantacalcio.sample.core.database.DatabaseClient
+import it.fantacalcio.sample.core.network.retrofit.ApiClient
+import it.fantacalcio.sample.core.network.retrofit.ApiInterface
 import javax.inject.Singleton
 
 @Module
