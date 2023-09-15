@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import it.fantacalcio.sample.feature_list.data.local.entity.PlayerEntity
 
 @Dao
 interface DaoInterface {

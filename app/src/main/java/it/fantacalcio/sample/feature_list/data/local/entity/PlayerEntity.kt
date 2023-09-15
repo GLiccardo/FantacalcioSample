@@ -9,7 +9,7 @@ data class PlayerEntity(
 
     @PrimaryKey val playerId: Int,
     val playerName: String,
-    val imageUrl: String,
+    val imageURL: String,
     val teamAbbreviation: String,
     val gamesPlayed: Int,
     val averageGrade: Double,
@@ -21,7 +21,7 @@ data class PlayerEntity(
         return PlayerModel(
             playerId = playerId,
             playerName = playerName,
-            imageUrl = imageUrl,
+            imageURL = imageURL,
             teamAbbreviation = teamAbbreviation,
             gamesPlayed = gamesPlayed,
             averageGrade = averageGrade,
