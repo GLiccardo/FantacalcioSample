@@ -60,7 +60,7 @@ object AppModule {
         api: ApiInterface,
         db: DatabaseClient
     ): PlayersRepository {
-        return PostsRepositoryImpl(api, db.dao)
+        return PlayersRepositoryImpl(api, db.dao)
     }
 
     /*
@@ -70,7 +70,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideGetPlayersUseCase(repository: PlayersRepository): GetPlayersUseCase {
-        return GetPostsUseCase(repository)
+        return GetPlayersUseCase(repository)
     }
 
 }

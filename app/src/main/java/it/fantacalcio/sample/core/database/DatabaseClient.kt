@@ -2,7 +2,7 @@ package it.fantacalcio.sample.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import it.monaconutrizionista.feature_posts.data.local.entity.PostEntity
+import it.fantacalcio.sample.feature_list.data.local.entity.PlayerEntity
 
 @Database(
     entities = [PlayerEntity::class],

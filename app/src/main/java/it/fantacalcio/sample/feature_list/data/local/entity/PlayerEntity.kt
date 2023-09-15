@@ -2,6 +2,7 @@ package it.fantacalcio.sample.feature_list.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
 import java.io.Serializable
 
 @Entity

@@ -2,6 +2,7 @@ package it.fantacalcio.sample.feature_list.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 import it.fantacalcio.sample.feature_list.data.local.entity.PlayerEntity
+import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
 import java.io.Serializable
 
 data class PlayerResponse(
