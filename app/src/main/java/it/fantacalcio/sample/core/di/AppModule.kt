@@ -12,6 +12,9 @@ import it.fantacalcio.sample.FantacalcioSampleApplication
 import it.fantacalcio.sample.core.database.DatabaseClient
 import it.fantacalcio.sample.core.network.retrofit.ApiClient
 import it.fantacalcio.sample.core.network.retrofit.ApiInterface
+import it.fantacalcio.sample.feature_list.data.repository_impl.PlayersRepositoryImpl
+import it.fantacalcio.sample.feature_list.domain.repository.PlayersRepository
+import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetPlayersUseCase
 import javax.inject.Singleton
 
 @Module
