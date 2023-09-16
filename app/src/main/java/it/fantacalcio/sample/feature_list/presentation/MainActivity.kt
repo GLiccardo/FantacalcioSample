@@ -16,13 +16,43 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(
     override fun doInOnCreate() {
         super.doInOnCreate()
 
-        binding.bottomNavigationView.itemIconTintList = null
+        setupNavigationView()
+    }
 
-        replaceFragment(
-            PlayersListFragment.newInstance("something"),
-            PlayersListFragment.TAG,
-            containerResId = R.id.container
-        )
+    private fun setupNavigationView() {
+        with(binding) {
+            // Use Navigation
+//            val navController = findNavController(R.id.container)
+//            bottomNavigationView.setupWithNavController(navController)
+
+            // Use fragmentManager
+            bottomNavigationView.setOnItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.navigation_bar_list -> {
+                        replaceFragment(
+                            PlayersListFragment.newInstance("pagina 1"),
+                            PlayersListFragment.TAG,
+                            containerResId = R.id.container
+                        )
+                        true
+                    }
+
+                    R.id.navigation_bar_preferred -> {
+                        replaceFragment(
+                            PlayersListFragment.newInstance("pagina 2"),
+                            PlayersListFragment.TAG,
+                            containerResId = R.id.container
+                        )
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+
+            bottomNavigationView.itemIconTintList = null
+            bottomNavigationView.selectedItemId = R.id.navigation_bar_list
+        }
     }
 
 }

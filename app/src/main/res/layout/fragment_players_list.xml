@@ -12,7 +12,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_players_list_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/top_bar_height"
+            android:background="@color/grey"
             app:layout_constraintTop_toTopOf="parent">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -21,19 +22,20 @@
             android:id="@+id/rv_players_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_players_list"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_players_list_toolbar"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            tools:itemCount="10"
+            tools:listitem="@layout/item_players_list" />
 
         <TextView
+            android:id="@+id/tv_player_list_empty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="MainFragment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="MainFragment" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

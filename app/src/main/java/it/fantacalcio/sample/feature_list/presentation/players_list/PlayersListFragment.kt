@@ -1,11 +1,13 @@
 package it.fantacalcio.sample.feature_list.presentation.players_list
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import it.fantacalcio.sample.R
+import it.fantacalcio.sample.core.constants.Constants.EMPTY_STRING
 import it.fantacalcio.sample.core.ui.base.BaseFragment
 import it.fantacalcio.sample.databinding.FragmentPlayersListBinding
 import kotlinx.coroutines.launch
@@ -16,19 +18,33 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
     PlayersListViewModel::class.java
 ) {
 
+    private lateinit var text: String
+
     companion object {
 
         val TAG: String = PlayersListFragment::class.java.name
 
-        private const val ARGS_SOMETHING = "args_something"
+        private const val ARGS_TEXT = "args_text"
 
-        fun newInstance(param1: String) =
+        fun newInstance(text: String) =
             PlayersListFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARGS_SOMETHING, param1)
+                    putString(ARGS_TEXT, text)
                 }
             }
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            text = it.getString(ARGS_TEXT, EMPTY_STRING)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.tvPlayerListEmptyText.text = text
     }
 
     override fun loadData() {
