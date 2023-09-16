@@ -3,12 +3,12 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-android")
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "it.fantacalcio.sample"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "it.fantacalcio.sample"
@@ -84,9 +84,8 @@ dependencies {
     // Room
     val roomVersion = "2.5.2"
     implementation("androidx.room:room-runtime:$roomVersion")
-    annotationProcessor("androidx.room:room-compiler:$roomVersion")
-    implementation("androidx.room:room-paging:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
 
     // Coroutines
     val coroutinesVersion = "1.6.4"
@@ -99,7 +98,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
     // Networking - GSON
-    val gsonVersion = "2.8.9"
+    val gsonVersion = "2.9.0"
     implementation("com.google.code.gson:gson:$gsonVersion")
 
     // Networking - OkHttp
@@ -108,20 +107,24 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
 
     // Dependency Injection
-    val diVersion = "2.38.1"
+    val diVersion = "2.48"
     implementation("com.google.dagger:hilt-android:$diVersion")
     kapt("com.google.dagger:hilt-android-compiler:$diVersion")
 
     // Glide
-    val glideVersion = "4.12.0"
+    val glideVersion = "4.16.0"
     implementation("com.github.bumptech.glide:glide:$glideVersion")
-    annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion")
+    kapt("com.github.bumptech.glide:compiler:$glideVersion")
 
     // Utilities
-    implementation("joda-time:joda-time:2.10.13")
+    implementation("joda-time:joda-time:2.12.5")
     implementation("com.jakewharton.timber:timber:5.0.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
+
+kapt {
+    correctErrorTypes = true
 }

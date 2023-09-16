@@ -21,7 +21,6 @@ class FantacalcioSampleApplication : Application() {
         instance = this
 
         initTimber()
-
     }
 
     private fun initTimber() {
