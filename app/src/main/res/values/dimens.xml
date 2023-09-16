@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Text -->
+    <dimen name="search_text_size">22sp</dimen>
+
+
+    <!-- Players list -->
     <dimen name="top_bar_height">64dp</dimen>
     <dimen name="bottom_bar_height">80dp</dimen>
     <dimen name="bottom_bar_icon_size">24dp</dimen>

@@ -55,4 +55,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
 }
