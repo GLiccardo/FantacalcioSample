@@ -1,5 +1,18 @@
 <resources>
 
     <string name="app_name">FantacalcioSample</string>
-    <string name="search_text_hint">Lista Calciatori</string>
+
+    <!-- Toolbar -->
+    <string name="toolbar_search_text_hint">Lista Calciatori</string>
+    <string name="toolbar_preferred_players">Preferiti</string>
+
+    <!-- No results -->
+    <string name="search_no_results">La ricerca non ha prodotto risultati</string>
+    <string name="preferred_no_results">Nessun preferito</string>
+
+    <!-- Premium -->
+    <string name="premium_unlock">Sblocca premium</string>
+    <string name="premium_unlocked">Premium sbloccato</string>
+    <string name="premium_expired">Premium scaduto</string>
+
 </resources>
