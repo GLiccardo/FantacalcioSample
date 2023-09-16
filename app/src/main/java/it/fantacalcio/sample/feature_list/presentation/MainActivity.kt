@@ -15,6 +15,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(
 
     override fun doInOnCreate() {
         super.doInOnCreate()
+
+        binding.bottomNavigationView.itemIconTintList = null
+
         replaceFragment(
             PlayersListFragment.newInstance("something"),
             PlayersListFragment.TAG,

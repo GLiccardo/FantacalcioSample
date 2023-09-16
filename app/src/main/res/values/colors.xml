@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#FFF5F5F5</color>
+
+    <!-- Bottom bar -->
+    <color name="bottom_bar_selected_color">#2E6BE6</color>
+    <color name="bottom_bar_unselected_color">#49454F</color>
+    <color name="bottom_bar_ripple_color">#CCDDFF</color>
+
+
 </resources>
