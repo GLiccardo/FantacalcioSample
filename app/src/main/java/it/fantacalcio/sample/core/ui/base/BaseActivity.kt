@@ -5,12 +5,12 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-abstract class BaseActivity<VM : AndroidViewModel, VB : ViewDataBinding>(
+abstract class BaseActivity<VM : ViewModel, VB : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int,
-    val viewModelClass: Class<VM>
+    private val viewModelClass: Class<VM>
 ) : AppCompatActivity() {
 
     lateinit var viewModel: VM
