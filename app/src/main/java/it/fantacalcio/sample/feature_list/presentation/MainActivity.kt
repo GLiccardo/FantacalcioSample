@@ -1,12 +1,24 @@
 package it.fantacalcio.sample.feature_list.presentation
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import it.fantacalcio.sample.R
+import it.fantacalcio.sample.core.extension.replaceFragment
+import it.fantacalcio.sample.core.ui.base.BaseActivity
+import it.fantacalcio.sample.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+@AndroidEntryPoint
+class MainActivity : BaseActivity<PlayersListViewModel, ActivityMainBinding>(
+    R.layout.activity_main,
+    PlayersListViewModel::class.java
+) {
+
+    override fun doInOnCreate() {
+        super.doInOnCreate()
+        replaceFragment(
+            PlayersListFragment.newInstance("something"),
+            PlayersListFragment.TAG,
+            containerResId = R.id.container
+        )
     }
+
 }
