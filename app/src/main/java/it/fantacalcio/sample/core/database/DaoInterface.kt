@@ -1,33 +1,36 @@
 package it.fantacalcio.sample.core.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import it.fantacalcio.sample.feature_list.data.local.entity.PlayerEntity
 
 @Dao
 interface DaoInterface {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPlayers(posts: List<PlayerEntity>)
+    fun insertPlayers(players: List<PlayerEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPlayer(post: PlayerEntity)
+    fun insertPlayer(player: PlayerEntity)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updatePlayer(player: PlayerEntity)
 
     @Query("DELETE FROM playerentity")
-    suspend fun deleteAllPlayers()
+    fun deleteAllPlayers(): Int
 
-    @Query("DELETE FROM playerentity WHERE id IN(:playerIdList)")
-    suspend fun deleteMultiplePlayers(playerIdList: List<String>)
-
-    @Query("DELETE FROM playerentity WHERE id IN(:playerId)")
-    suspend fun deleteSinglePlayer(playerId: String)
+//    @Query("DELETE FROM playerentity WHERE playerId IN(:playerId)")
+    @Delete
+    fun deletePlayer(player: PlayerEntity)
 
     @Query("SELECT * FROM playerentity")
-    suspend fun getPlayers(): List<PlayerEntity>
+    fun getPlayers(): List<PlayerEntity>
 
-    @Query("SELECT * FROM playerentity WHERE id=:playerId")
-    suspend fun getPlayerDetail(playerId: String): PlayerEntity
+//    @Query("SELECT * FROM playerentity WHERE playerId=:playerId")
+//    fun getPlayerDetail(playerId: String): PlayerEntity
 
 }
