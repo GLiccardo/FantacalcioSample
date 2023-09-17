@@ -43,22 +43,22 @@ class PlayersListViewModel @Inject constructor(
         }
     }
 
-//    fun getSearchedPlayer() {
-//        viewModelScope.launch {
-//            getOrderedPlayersUseCase().onEach { apiResult ->
-//                when (apiResult) {
-//                    is ApiResult.Success -> {
-//                        _playersListState.value = PlayersListState(playersList = apiResult.data ?: emptyList())
-//                    }
-//                    is ApiResult.Error -> {
-//                        _playersListState.value = PlayersListState(error = apiResult.throwable?.localizedMessage ?: "An expected error is occurred")
-//                    }
-//                    is ApiResult.Loading -> {
-//                        _playersListState.value = PlayersListState(isLoading = true)
-//                    }
-//                }
-//            }.launchIn(this)
-//        }
-//    }
+    fun getSearchedPlayer() {
+        viewModelScope.launch {
+            getOrderedPlayersUseCase().onEach { apiResult ->
+                when (apiResult) {
+                    is ApiResult.Success -> {
+                        _playersListState.value = PlayersListState(playersList = apiResult.data ?: emptyList())
+                    }
+                    is ApiResult.Error -> {
+                        _playersListState.value = PlayersListState(error = apiResult.throwable?.localizedMessage ?: "An expected error is occurred")
+                    }
+                    is ApiResult.Loading -> {
+                        _playersListState.value = PlayersListState(isLoading = true)
+                    }
+                }
+            }.launchIn(this)
+        }
+    }
 
 }

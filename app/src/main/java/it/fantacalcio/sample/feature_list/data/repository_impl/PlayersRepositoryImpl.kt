@@ -37,15 +37,15 @@ class PlayersRepositoryImpl(
             emit(ApiResult.Error(t))
         }.flowOn(Dispatchers.IO)
 
-//    override fun getSearchedPlayer(playerName: String): Flow<ApiResult<List<PlayerModel>>> =
-//        flow {
-//            emit(ApiResult.Loading())
-//
-//            val playerList = daoInterface.getPlayers().map { it.toPlayerModel() }
-//            val results = playerList.filter { player -> player.playerName.contains(playerName) }
-//            val orderedResults = results.sortedBy { it.playerName }
-//            emit(ApiResult.Success(orderedResults))
-//        }.catch { t ->
-//            emit(ApiResult.Error(t))
-//        }.flowOn(Dispatchers.IO)
+    override fun getSearchedPlayer(playerName: String): Flow<ApiResult<List<PlayerModel>>> =
+        flow {
+            emit(ApiResult.Loading())
+
+            val playerList = daoInterface.getPlayers().map { it.toPlayerModel() }
+            val results = playerList.filter { player -> player.playerName.contains(playerName) }
+            val orderedResults = results.sortedBy { it.playerName }
+            emit(ApiResult.Success(orderedResults))
+        }.catch { t ->
+            emit(ApiResult.Error(t))
+        }.flowOn(Dispatchers.IO)
 }
