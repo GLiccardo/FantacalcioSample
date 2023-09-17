@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface PlayersRepository {
 
     fun getOrderedPlayers(): Flow<ApiResult<List<PlayerModel>>>
-    fun getSearchedPlayer(playerName: String): Flow<ApiResult<List<PlayerModel>>>
+    fun getSearchedPlayers(playerName: String): Flow<ApiResult<List<PlayerModel>>>
 
 }

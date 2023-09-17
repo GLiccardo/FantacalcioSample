@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import it.fantacalcio.sample.core.network.utils.ApiResult
 import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetOrderedPlayersUseCase
+import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetSearchedPlayersUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,11 +16,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlayersListViewModel @Inject constructor(
-    private val getOrderedPlayersUseCase: GetOrderedPlayersUseCase
+    private val getOrderedPlayersUseCase: GetOrderedPlayersUseCase,
+    private val getSearchedPlayersUseCase: GetSearchedPlayersUseCase
 ) : ViewModel() {
 
-    private val _playersListState = MutableStateFlow(PlayersListState())
-    val playersListState: StateFlow<PlayersListState> = _playersListState.asStateFlow()
+    private val _orderedPlayersListState = MutableStateFlow(PlayersListState())
+    val orderedPlayersListState: StateFlow<PlayersListState> = _orderedPlayersListState.asStateFlow()
+
+    private val _searchedPlayersListState = MutableStateFlow(PlayersListState())
+    val searchedPlayersListState: StateFlow<PlayersListState> = _searchedPlayersListState.asStateFlow()
 
 //    init {
 //        getPlayers()
@@ -30,31 +35,31 @@ class PlayersListViewModel @Inject constructor(
             getOrderedPlayersUseCase().onEach { apiResult ->
                 when (apiResult) {
                     is ApiResult.Success -> {
-                        _playersListState.value = PlayersListState(playersList = apiResult.data ?: emptyList())
+                        _orderedPlayersListState.value = PlayersListState(playersList = apiResult.data ?: emptyList())
                     }
                     is ApiResult.Error -> {
-                        _playersListState.value = PlayersListState(error = apiResult.throwable?.localizedMessage ?: "An expected error is occurred")
+                        _orderedPlayersListState.value = PlayersListState(error = apiResult.throwable?.localizedMessage ?: "An expected error is occurred")
                     }
                     is ApiResult.Loading -> {
-                        _playersListState.value = PlayersListState(isLoading = true)
+                        _orderedPlayersListState.value = PlayersListState(isLoading = true)
                     }
                 }
             }.launchIn(this)
         }
     }
 
-    fun getSearchedPlayer() {
+    fun getSearchedPlayer(nameSubstring: String) {
         viewModelScope.launch {
-            getOrderedPlayersUseCase().onEach { apiResult ->
+            getSearchedPlayersUseCase(nameSubstring).onEach { apiResult ->
                 when (apiResult) {
                     is ApiResult.Success -> {
-                        _playersListState.value = PlayersListState(playersList = apiResult.data ?: emptyList())
+                        _searchedPlayersListState.value = PlayersListState(playersList = apiResult.data ?: emptyList())
                     }
                     is ApiResult.Error -> {
-                        _playersListState.value = PlayersListState(error = apiResult.throwable?.localizedMessage ?: "An expected error is occurred")
+                        _searchedPlayersListState.value = PlayersListState(error = apiResult.throwable?.localizedMessage ?: "An expected error is occurred")
                     }
                     is ApiResult.Loading -> {
-                        _playersListState.value = PlayersListState(isLoading = true)
+                        _searchedPlayersListState.value = PlayersListState(isLoading = true)
                     }
                 }
             }.launchIn(this)

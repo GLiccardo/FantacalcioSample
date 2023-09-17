@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetSearchedPlayerUseCase @Inject constructor(
+class GetSearchedPlayersUseCase @Inject constructor(
     private val repository: PlayersRepository
 ) {
 
@@ -17,7 +17,7 @@ class GetSearchedPlayerUseCase @Inject constructor(
         if (playerName.isBlank()) {
             return flow {}
         }
-        return repository.getSearchedPlayer(playerName)
+        return repository.getSearchedPlayers(playerName)
     }
 
 }

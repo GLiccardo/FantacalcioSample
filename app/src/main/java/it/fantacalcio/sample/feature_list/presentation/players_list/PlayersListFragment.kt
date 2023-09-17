@@ -2,17 +2,15 @@ package it.fantacalcio.sample.feature_list.presentation.players_list
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import it.fantacalcio.sample.R
 import it.fantacalcio.sample.core.constants.Constants.EMPTY_STRING
+import it.fantacalcio.sample.core.extension.collectLA
+import it.fantacalcio.sample.core.extension.hideKeyboard
 import it.fantacalcio.sample.core.ui.base.BaseFragment
 import it.fantacalcio.sample.databinding.FragmentPlayersListBinding
 import it.fantacalcio.sample.feature_list.data.adapter.PlayersListAdapter
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersListBinding>(
@@ -46,7 +44,25 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvPlayerListEmptyText.text = text
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        // Search icon
+        binding.ivPlayersListToolbarSearchIcon.setOnClickListener {
+            val text = binding.etPlayerListToolbarSearchText.text.toString()
+            if (text.isNotEmpty()) {
+                viewModel.getSearchedPlayer(text)
+            }
+            showCloseIcon()
+        }
+
+        // Close icon
+        binding.ivPlayersListToolbarCloseIcon.setOnClickListener {
+            viewModel.getOrderedPlayers()
+            binding.etPlayerListToolbarSearchText.text?.clear()
+            showSearchIcon()
+        }
     }
 
     override fun loadData() {
@@ -56,22 +72,47 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
 
     override fun collectFlows() {
         super.collectFlows()
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.playersListState.collect { uiState ->
-                    updateUi(uiState)
-                }
-            }
+        viewModel.orderedPlayersListState.collectLA(viewLifecycleOwner) { uiState ->
+            showOrderedPlayersList(uiState)
+        }
+
+        viewModel.searchedPlayersListState.collectLA(viewLifecycleOwner) { uiState ->
+            hideKeyboard()
+            showSearchedPlayersList(uiState)
         }
     }
 
-    private fun updateUi(uiState: PlayersListState) {
+    private fun showOrderedPlayersList(uiState: PlayersListState) {
         binding.rvPlayersList.apply {
             val playersList = uiState.playersList
             val playersAdapter = PlayersListAdapter(playersList, true)
             adapter = playersAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+    }
+
+    private fun showSearchedPlayersList(uiState: PlayersListState) {
+        val playersList = uiState.playersList
+
+        if (playersList.isNotEmpty()) {
+            binding.rvPlayersList.apply {
+                val playersAdapter = PlayersListAdapter(playersList, false)
+                adapter = playersAdapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+        } else {
+            binding.tvPlayerListEmptyText.text = getString(R.string.search_no_results)
+        }
+    }
+
+    private fun showSearchIcon() {
+        binding.ivPlayersListToolbarSearchIcon.visibility = View.VISIBLE
+        binding.ivPlayersListToolbarCloseIcon.visibility = View.GONE
+    }
+
+    private fun showCloseIcon() {
+        binding.ivPlayersListToolbarSearchIcon.visibility = View.GONE
+        binding.ivPlayersListToolbarCloseIcon.visibility = View.VISIBLE
     }
 
 }

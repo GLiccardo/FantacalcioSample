@@ -29,7 +29,7 @@
             android:id="@+id/cv_player_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_player_height"
-            android:elevation="@dimen/item_player_elevation"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/grey"
             app:cardCornerRadius="@dimen/item_player_corner_radius"
             app:layout_constraintBottom_toBottomOf="parent"

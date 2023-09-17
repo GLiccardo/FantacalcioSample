@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import it.fantacalcio.sample.core.extension.first
 import it.fantacalcio.sample.databinding.ItemPlayersListBinding
 import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
 
@@ -22,7 +23,7 @@ class PlayersListAdapter(
         }
 
     init {
-        list= initialList
+        list = initialList
     }
 
     /*
@@ -31,7 +32,7 @@ class PlayersListAdapter(
 
     companion object {
 
-        val diffCallback = object: DiffUtil.ItemCallback<PlayerModel>() {
+        val diffCallback = object : DiffUtil.ItemCallback<PlayerModel>() {
             override fun areItemsTheSame(oldItem: PlayerModel, newItem: PlayerModel): Boolean {
                 return oldItem.playerId == newItem.playerId
             }
@@ -53,9 +54,12 @@ class PlayersListAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val isHeader =
-            !(position > 0 && getItem(position - 1).playerName.substring(0, 1) == getItem(position).playerName.substring(0, 1))
-        (holder as PlayersListViewHolder).bind(getItem(position), showHeader, isHeader)
+        if (showHeader) {
+            val isHeader = !(position > 0 && getItem(position - 1).playerName.first() == getItem(position).playerName.first())
+            (holder as PlayersListViewHolder).bind(getItem(position), true, isHeader)
+        } else {
+            (holder as PlayersListViewHolder).bind(getItem(position))
+        }
     }
 
     override fun getItemCount(): Int {
@@ -68,7 +72,7 @@ class PlayersListAdapter(
 
     inner class PlayersListViewHolder(
         private val binding: ItemPlayersListBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
             item: PlayerModel,
@@ -76,7 +80,7 @@ class PlayersListAdapter(
             isHeader: Boolean = false
         ) {
             if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                with (binding) {
+                with(binding) {
                     val context = root.context
 
                     tvPlayerName.text = item.playerName
@@ -88,7 +92,7 @@ class PlayersListAdapter(
 
                     // if not first item check if item above has the same header
                     if (showHeader && isHeader) {
-                        tvPlayerHeader.text = item.playerName.substring(0, 1)
+                        tvPlayerHeader.text = item.playerName.first()
                         tvPlayerHeader.visibility = View.VISIBLE
                     } else {
                         tvPlayerHeader.visibility = View.GONE
