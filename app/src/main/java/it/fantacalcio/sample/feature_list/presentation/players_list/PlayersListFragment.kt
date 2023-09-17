@@ -5,11 +5,13 @@ import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import it.fantacalcio.sample.R
 import it.fantacalcio.sample.core.constants.Constants.EMPTY_STRING
 import it.fantacalcio.sample.core.ui.base.BaseFragment
 import it.fantacalcio.sample.databinding.FragmentPlayersListBinding
+import it.fantacalcio.sample.feature_list.data.adapter.PlayersListAdapter
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -49,7 +51,7 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
 
     override fun loadData() {
         super.loadData()
-        viewModel.getPlayers()
+        viewModel.getOrderedPlayers()
     }
 
     override fun collectFlows() {
@@ -57,9 +59,18 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.playersListState.collect { uiState ->
-//                    updateUi(uiState)
+                    updateUi(uiState)
                 }
             }
+        }
+    }
+
+    private fun updateUi(uiState: PlayersListState) {
+        binding.rvPlayersList.apply {
+            val playersList = uiState.playersList
+            val playersAdapter = PlayersListAdapter(playersList, true)
+            adapter = playersAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 

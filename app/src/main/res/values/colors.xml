@@ -6,6 +6,7 @@
     <color name="grey">#FFF5F5F5</color>
     <color name="text_black">#FF001E30</color>
     <color name="text_grey">#B3001E30</color>
+    <color name="text_header">#B3001E30</color>
 
     <!-- Bottom bar -->
     <color name="bottom_bar_selected_color">#2E6BE6</color>

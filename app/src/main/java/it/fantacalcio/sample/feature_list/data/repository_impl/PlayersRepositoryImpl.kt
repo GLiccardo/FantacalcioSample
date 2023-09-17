@@ -16,22 +16,36 @@ class PlayersRepositoryImpl(
     private val daoInterface: DaoInterface
 ) : PlayersRepository {
 
-    override fun getPlayers(): Flow<ApiResult<List<PlayerModel>>> =
+    override fun getOrderedPlayers(): Flow<ApiResult<List<PlayerModel>>> =
         flow {
             emit(ApiResult.Loading())
 
             // Get response result
             val remotePlayerList = apiInterface.getPlayers()
 
-            // Update DB
-            daoInterface.deleteAllPlayers()
-            daoInterface.insertPlayers(remotePlayerList.map { it.toPlayerEntity() })
+            if (!remotePlayerList.isNullOrEmpty()) {
+                // Update DB
+                daoInterface.deleteAllPlayers()
+                daoInterface.insertPlayers(remotePlayerList.map { it.toPlayerEntity() })
+            }
 
             // Return local model
             val localPlayerList = daoInterface.getPlayers().map { it.toPlayerModel() }
-            emit(ApiResult.Success(localPlayerList))
+            val localPlayerListOrdered = localPlayerList.sortedBy { it.playerName }
+            emit(ApiResult.Success(localPlayerListOrdered))
         }.catch { t ->
             emit(ApiResult.Error(t))
         }.flowOn(Dispatchers.IO)
 
+//    override fun getSearchedPlayer(playerName: String): Flow<ApiResult<List<PlayerModel>>> =
+//        flow {
+//            emit(ApiResult.Loading())
+//
+//            val playerList = daoInterface.getPlayers().map { it.toPlayerModel() }
+//            val results = playerList.filter { player -> player.playerName.contains(playerName) }
+//            val orderedResults = results.sortedBy { it.playerName }
+//            emit(ApiResult.Success(orderedResults))
+//        }.catch { t ->
+//            emit(ApiResult.Error(t))
+//        }.flowOn(Dispatchers.IO)
 }

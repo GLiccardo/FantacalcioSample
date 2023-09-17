@@ -6,12 +6,12 @@ import it.fantacalcio.sample.feature_list.domain.repository.PlayersRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetPlayersUseCase @Inject constructor(
+class GetOrderedPlayersUseCase @Inject constructor(
     private val repository: PlayersRepository
 ) {
 
     operator fun invoke(): Flow<ApiResult<List<PlayerModel>>> {
-        return repository.getPlayers()
+        return repository.getOrderedPlayers()
     }
 
 }

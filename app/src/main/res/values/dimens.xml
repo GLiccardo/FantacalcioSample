@@ -4,7 +4,6 @@
     <!-- Text -->
     <dimen name="search_text_size">22sp</dimen>
 
-
     <!-- Players list -->
     <dimen name="top_bar_height">64dp</dimen>
     <dimen name="bottom_bar_height">80dp</dimen>
@@ -16,5 +15,6 @@
     <dimen name="item_player_elevation">6dp</dimen>
     <dimen name="item_player_name_text_size">16sp</dimen>
     <dimen name="item_player_team_text_size">14sp</dimen>
+    <dimen name="item_player_header">14sp</dimen>
 
 </resources>

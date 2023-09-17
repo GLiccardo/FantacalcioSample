@@ -14,7 +14,7 @@ import it.fantacalcio.sample.core.network.retrofit.ApiClient
 import it.fantacalcio.sample.core.network.retrofit.ApiInterface
 import it.fantacalcio.sample.feature_list.data.repository_impl.PlayersRepositoryImpl
 import it.fantacalcio.sample.feature_list.domain.repository.PlayersRepository
-import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetPlayersUseCase
+import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetOrderedPlayersUseCase
 import javax.inject.Singleton
 
 @Module
@@ -72,8 +72,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGetPlayersUseCase(repository: PlayersRepository): GetPlayersUseCase {
-        return GetPlayersUseCase(repository)
+    fun provideGetPlayersUseCase(repository: PlayersRepository): GetOrderedPlayersUseCase {
+        return GetOrderedPlayersUseCase(repository)
     }
 
 }
