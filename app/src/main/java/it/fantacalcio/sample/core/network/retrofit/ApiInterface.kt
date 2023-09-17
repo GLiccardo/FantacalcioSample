@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface ApiInterface {
 
-    @GET("/test")
+    @GET("/test/test.json")
     suspend fun getPlayers(): List<PlayerResponse>
 
 }
