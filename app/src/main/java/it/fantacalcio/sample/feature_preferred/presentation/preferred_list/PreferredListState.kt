@@ -1,4 +1,4 @@
-package it.fantacalcio.sample.feature_list.presentation.preferred_list
+package it.fantacalcio.sample.feature_preferred.presentation.preferred_list
 
 import it.fantacalcio.sample.core.constants.Constants.EMPTY_STRING
 import it.fantacalcio.sample.feature_list.domain.model.PlayerModel

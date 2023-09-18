@@ -20,22 +20,18 @@ class PlayersRepositoryImpl(
         flow {
             emit(ApiResult.Loading())
 
-//            daoInterface.deleteAllPlayers()
+            // Get remote results
+            val remotePlayerList = apiInterface.getPlayers()
 
-            // Get database results
-            val databasePlayerList = daoInterface.getPlayers()
+            // Update database
+            daoInterface.deleteAllPlayers()
+            daoInterface.insertPlayers(remotePlayerList.map { it.toPlayerEntity() })
 
-            val localPlayersList =
-                if (databasePlayerList.isEmpty()) {
-                    // Get remote results
-                    val remotePlayerList = apiInterface.getPlayers()
-                    // Update DB
-                    daoInterface.deleteAllPlayers()
-                    daoInterface.insertPlayers(remotePlayerList.map { it.toPlayerEntity() })
-                    daoInterface.getPlayers().map { it.toPlayerModel() }
-                } else {
-                    databasePlayerList.map { it.toPlayerModel() }
-                }
+            // Create local list with preferred property
+            val localPlayersList = daoInterface.getPlayers().map { playerEntity ->
+                val isPreferred = daoInterface.getPreferredPlayersId().any { it.playerId == playerEntity.playerId }
+                playerEntity.toPlayerModel(isPreferred)
+            }
 
             // Return oredered results
             val localPlayersListOrdered = localPlayersList.sortedBy { it.playerName }
@@ -48,7 +44,10 @@ class PlayersRepositoryImpl(
         flow {
             emit(ApiResult.Loading())
 
-            val playerList = daoInterface.getPlayers().map { it.toPlayerModel() }
+            val playerList = daoInterface.getPlayers().map { playerEntity ->
+                val isPreferred = daoInterface.getPreferredPlayersId().any { it.playerId == playerEntity.playerId }
+                playerEntity.toPlayerModel(isPreferred)
+            }
             val results = playerList.filter { player -> player.playerName.contains(playerName, true) } // TODO: forse startsWith?
             val orderedResults = results.sortedBy { it.playerName }
             emit(ApiResult.Success(orderedResults))
@@ -61,7 +60,10 @@ class PlayersRepositoryImpl(
             emit(ApiResult.Loading())
 
             // Get database result
-            val playersList = daoInterface.getPlayers().map { it.toPlayerModel() }
+            val playersList = daoInterface.getPlayers().map { playerEntity ->
+                val isPreferred = daoInterface.getPreferredPlayersId().any { it.playerId == playerEntity.playerId }
+                playerEntity.toPlayerModel(isPreferred)
+            }
 
             // Filter preferred players
             val preferredPlayers = playersList.filter { it.isPreferred }

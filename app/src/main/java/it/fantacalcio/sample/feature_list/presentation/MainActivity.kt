@@ -6,6 +6,7 @@ import it.fantacalcio.sample.core.extension.replaceFragment
 import it.fantacalcio.sample.core.ui.base.BaseActivity
 import it.fantacalcio.sample.databinding.ActivityMainBinding
 import it.fantacalcio.sample.feature_list.presentation.players_list.PlayersListFragment
+import it.fantacalcio.sample.feature_preferred.presentation.preferred_list.PreferredListFragment
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(
@@ -39,8 +40,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(
 
                     R.id.navigation_bar_preferred -> {
                         replaceFragment(
-                            PlayersListFragment.newInstance("pagina 2"),
-                            PlayersListFragment.TAG,
+                            PreferredListFragment.newInstance("pagina 2"),
+                            PreferredListFragment.TAG,
                             containerResId = R.id.container
                         )
                         true

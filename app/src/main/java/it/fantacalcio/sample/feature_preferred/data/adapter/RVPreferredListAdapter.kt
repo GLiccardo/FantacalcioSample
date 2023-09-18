@@ -1,4 +1,4 @@
-package it.fantacalcio.sample.feature_list.data.adapter
+package it.fantacalcio.sample.feature_preferred.data.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

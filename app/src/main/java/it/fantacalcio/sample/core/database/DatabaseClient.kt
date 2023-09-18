@@ -3,9 +3,10 @@ package it.fantacalcio.sample.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import it.fantacalcio.sample.feature_list.data.local.entity.PlayerEntity
+import it.fantacalcio.sample.feature_preferred.data.local.entity.PreferredPlayerEntity
 
 @Database(
-    entities = [PlayerEntity::class],
+    entities = [PlayerEntity::class, PreferredPlayerEntity::class],
     version = 1
 )
 abstract class DatabaseClient: RoomDatabase() {

@@ -24,7 +24,7 @@ data class PlayerResponse(
 
 ) : Serializable {
 
-    fun toPlayerModel(): PlayerModel {
+    fun toPlayerModel(isPreferred: Boolean = false): PlayerModel {
         return PlayerModel(
             playerId = playerId,
             playerName = playerName,
@@ -33,7 +33,7 @@ data class PlayerResponse(
             gamesPlayed = gamesPlayed,
             averageGrade = averageGrade,
             averageFantaGrade = averageFantaGrade,
-            isPreferred = false
+            isPreferred = isPreferred
         )
     }
 
@@ -45,8 +45,7 @@ data class PlayerResponse(
             teamAbbreviation = teamAbbreviation,
             gamesPlayed = gamesPlayed,
             averageGrade = averageGrade,
-            averageFantaGrade = averageFantaGrade,
-            isPreferred = false
+            averageFantaGrade = averageFantaGrade
         )
     }
 

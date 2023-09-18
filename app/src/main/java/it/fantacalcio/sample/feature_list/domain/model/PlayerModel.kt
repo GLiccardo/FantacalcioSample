@@ -1,6 +1,7 @@
 package it.fantacalcio.sample.feature_list.domain.model
 
 import it.fantacalcio.sample.feature_list.data.local.entity.PlayerEntity
+import it.fantacalcio.sample.feature_preferred.data.local.entity.PreferredPlayerEntity
 import java.io.Serializable
 
 data class PlayerModel(
@@ -12,7 +13,7 @@ data class PlayerModel(
     val gamesPlayed: Int,
     val averageGrade: Double,
     val averageFantaGrade: Double,
-    var isPreferred: Boolean
+    var isPreferred: Boolean = false
 
 ) : Serializable {
 
@@ -24,8 +25,13 @@ data class PlayerModel(
             teamAbbreviation = teamAbbreviation,
             gamesPlayed = gamesPlayed,
             averageGrade = averageGrade,
-            averageFantaGrade = averageFantaGrade,
-            isPreferred = isPreferred
+            averageFantaGrade = averageFantaGrade
+        )
+    }
+
+    fun toPreferredPlayerEntity(): PreferredPlayerEntity {
+        return PreferredPlayerEntity(
+            playerId = playerId
         )
     }
 

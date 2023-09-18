@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import it.fantacalcio.sample.feature_list.data.local.entity.PlayerEntity
+import it.fantacalcio.sample.feature_preferred.data.local.entity.PreferredPlayerEntity
 
 @Dao
 interface DaoInterface {
@@ -32,5 +33,18 @@ interface DaoInterface {
 
 //    @Query("SELECT * FROM playerentity WHERE playerId=:playerId")
 //    fun getPlayerDetail(playerId: String): PlayerEntity
+
+    /*
+     * Preferred players
+     */
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addPreferredPlayerId(player: PreferredPlayerEntity)
+
+    @Delete
+    fun deletePreferredPlayerId(player: PreferredPlayerEntity)
+
+    @Query("SELECT * FROM preferredplayerentity")
+    fun getPreferredPlayersId(): List<PreferredPlayerEntity>
 
 }

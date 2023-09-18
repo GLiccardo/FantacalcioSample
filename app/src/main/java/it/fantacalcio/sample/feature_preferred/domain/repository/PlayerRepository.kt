@@ -1,4 +1,4 @@
-package it.fantacalcio.sample.feature_list.domain.repository
+package it.fantacalcio.sample.feature_preferred.domain.repository
 
 import it.fantacalcio.sample.core.network.utils.ApiResult
 import it.fantacalcio.sample.feature_list.domain.model.PlayerModel

@@ -1,12 +1,14 @@
-package it.fantacalcio.sample.feature_list.presentation.preferred_list
+package it.fantacalcio.sample.feature_preferred.presentation.preferred_list
 
 import android.os.Bundle
-import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import it.fantacalcio.sample.R
 import it.fantacalcio.sample.core.constants.Constants.EMPTY_STRING
+import it.fantacalcio.sample.core.extension.collectLA
 import it.fantacalcio.sample.core.ui.base.BaseFragment
 import it.fantacalcio.sample.databinding.FragmentPreferredListBinding
+import it.fantacalcio.sample.feature_preferred.data.adapter.RVPreferredListAdapter
 
 @AndroidEntryPoint
 class PreferredListFragment : BaseFragment<PreferredListViewModel, FragmentPreferredListBinding>(
@@ -38,39 +40,30 @@ class PreferredListFragment : BaseFragment<PreferredListViewModel, FragmentPrefe
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupListeners()
-    }
-
-    private fun setupListeners() {
-        // Search icon
-//        binding.ivPlayersListToolbarSearchIcon.setOnClickListener {
-//
-//        }
-
-        // Close icon
-//        binding.ivPlayersListToolbarCloseIcon.setOnClickListener {
-//            viewModel.getOrderedPlayers()
-//
-//        }
-    }
-
     override fun loadData() {
         super.loadData()
-//        viewModel.getPreferredPlayers()
+        viewModel.getPreferredPlayers()
     }
 
     override fun collectFlows() {
         super.collectFlows()
-//        viewModel.orderedPlayersListState.collectLA(viewLifecycleOwner) { uiState ->
-//            showOrderedPlayersList(uiState)
-//        }
+        viewModel.preferredListState.collectLA(viewLifecycleOwner) { uiState ->
+            showPreferredPlayersList(uiState)
+        }
+    }
 
-//        viewModel.searchedPlayersListState.collectLA(viewLifecycleOwner) { uiState ->
-//            hideKeyboard()
-//            showSearchedPlayersList(uiState)
-//        }
+    private fun showPreferredPlayersList(uiState: PreferredListState) {
+        val playersList = uiState.playersList
+
+        if (playersList.isNotEmpty()) {
+            binding.rvPreferredList.apply {
+                val playersAdapter = RVPreferredListAdapter(playersList)
+                adapter = playersAdapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+        } else {
+            binding.tvPreferredListEmptyText.text = getString(R.string.search_no_results)
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package it.fantacalcio.sample.feature_list.presentation.preferred_list
+package it.fantacalcio.sample.feature_preferred.presentation.preferred_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

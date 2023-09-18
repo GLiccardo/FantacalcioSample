@@ -12,7 +12,7 @@ import it.fantacalcio.sample.core.extension.first
 import it.fantacalcio.sample.databinding.ItemPlayersListBinding
 import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
 
-class PlayersListAdapter(
+class RVPlayersListAdapter(
     initialList: List<PlayerModel> = emptyList(),
     private val showHeader: Boolean = false,
     private val onStarClick: (PlayerModel) -> Unit

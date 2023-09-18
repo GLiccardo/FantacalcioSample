@@ -14,12 +14,11 @@ data class PlayerEntity(
     val teamAbbreviation: String,
     val gamesPlayed: Int,
     val averageGrade: Double,
-    val averageFantaGrade: Double,
-    val isPreferred: Boolean = false
+    val averageFantaGrade: Double
 
 ) : Serializable {
 
-    fun toPlayerModel(): PlayerModel {
+    fun toPlayerModel(isPreferred: Boolean): PlayerModel {
         return PlayerModel(
             playerId = playerId,
             playerName = playerName,
@@ -29,7 +28,6 @@ data class PlayerEntity(
             averageGrade = averageGrade,
             averageFantaGrade = averageFantaGrade,
             isPreferred = isPreferred
-//            isPreferred = SharedManager.preferredContains(playerId)
         )
     }
 

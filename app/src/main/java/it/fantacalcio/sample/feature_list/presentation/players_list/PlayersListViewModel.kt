@@ -7,7 +7,7 @@ import it.fantacalcio.sample.core.network.utils.ApiResult
 import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
 import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetOrderedPlayersUseCase
 import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetSearchedPlayersUseCase
-import it.fantacalcio.sample.feature_list.domain.use_case.player.UpdatePlayerUseCase
+import it.fantacalcio.sample.feature_preferred.domain.use_case.player.UpdatePlayerUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
