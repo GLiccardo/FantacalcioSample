@@ -20,19 +20,26 @@ class PlayersRepositoryImpl(
         flow {
             emit(ApiResult.Loading())
 
-            // Get response result
-            val remotePlayerList = apiInterface.getPlayers()
+//            daoInterface.deleteAllPlayers()
 
-            if (!remotePlayerList.isNullOrEmpty()) {
-                // Update DB
-                daoInterface.deleteAllPlayers()
-                daoInterface.insertPlayers(remotePlayerList.map { it.toPlayerEntity() })
-            }
+            // Get database results
+            val databasePlayerList = daoInterface.getPlayers()
 
-            // Return local model
-            val localPlayerList = daoInterface.getPlayers().map { it.toPlayerModel() }
-            val localPlayerListOrdered = localPlayerList.sortedBy { it.playerName }
-            emit(ApiResult.Success(localPlayerListOrdered))
+            val localPlayersList =
+                if (databasePlayerList.isEmpty()) {
+                    // Get remote results
+                    val remotePlayerList = apiInterface.getPlayers()
+                    // Update DB
+                    daoInterface.deleteAllPlayers()
+                    daoInterface.insertPlayers(remotePlayerList.map { it.toPlayerEntity() })
+                    daoInterface.getPlayers().map { it.toPlayerModel() }
+                } else {
+                    databasePlayerList.map { it.toPlayerModel() }
+                }
+
+            // Return oredered results
+            val localPlayersListOrdered = localPlayersList.sortedBy { it.playerName }
+            emit(ApiResult.Success(localPlayersListOrdered))
         }.catch { t ->
             emit(ApiResult.Error(t))
         }.flowOn(Dispatchers.IO)
