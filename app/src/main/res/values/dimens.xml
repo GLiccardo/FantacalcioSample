@@ -17,4 +17,8 @@
     <dimen name="item_player_team_text_size">14sp</dimen>
     <dimen name="item_player_header">14sp</dimen>
 
+    <!-- Preferred item -->
+    <dimen name="item_header_label_text_size">14sp</dimen>
+    <item name="item_stat_width" type="dimen" format="float">0.16</item>
+
 </resources>

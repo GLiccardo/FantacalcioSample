@@ -6,6 +6,12 @@
     <string name="toolbar_search_text_hint">Lista Calciatori</string>
     <string name="toolbar_preferred_players">Preferiti</string>
 
+    <!-- Preferred -->
+    <string name="preferred_header_player">Calciatore</string>
+    <string name="preferred_header_pg">PG</string>
+    <string name="preferred_header_mv">MV</string>
+    <string name="preferred_header_mfv">MFV</string>
+
     <!-- No results -->
     <string name="search_no_results">La ricerca non ha prodotto risultati</string>
     <string name="preferred_no_results">Nessun preferito</string>

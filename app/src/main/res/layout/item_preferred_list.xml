@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_preferred_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_player_height"
+            app:cardBackgroundColor="@color/grey"
+            app:cardCornerRadius="@dimen/item_player_corner_radius"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:id="@+id/fl_preferred_bg"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_player_list"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_preferred_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        tools:srcCompat="@drawable/ic_close" />
+
+                </FrameLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_preferred_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/item_player_name_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/tv_preferred_team"
+                    app:layout_constraintEnd_toStartOf="@id/iv_preferred_preferred"
+                    app:layout_constraintStart_toEndOf="@id/fl_preferred_bg"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="Zirkzee" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_preferred_team"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1"
+                    android:textAllCaps="true"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/item_player_team_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_preferred_preferred"
+                    app:layout_constraintStart_toEndOf="@id/fl_preferred_bg"
+                    app:layout_constraintTop_toBottomOf="@id/tv_preferred_name"
+                    tools:text="BOL" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_preferred_list_header_pg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/item_header_label_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_preferred_list_header_mv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="@dimen/item_stat_width"
+                    tools:text="7,65" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_preferred_list_header_mv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/item_header_label_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_preferred_list_header_mfv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="@dimen/item_stat_width"
+                    tools:text="8,98" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_preferred_list_header_mfv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/item_header_label_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="@dimen/item_stat_width"
+                    tools:text="7,00" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
