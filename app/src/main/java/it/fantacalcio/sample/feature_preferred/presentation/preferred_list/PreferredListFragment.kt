@@ -1,6 +1,7 @@
 package it.fantacalcio.sample.feature_preferred.presentation.preferred_list
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import it.fantacalcio.sample.R
@@ -16,7 +17,7 @@ class PreferredListFragment : BaseFragment<PreferredListViewModel, FragmentPrefe
     PreferredListViewModel::class.java
 ) {
 
-    private lateinit var text: String
+    private lateinit var errorText: String
 
     companion object {
 
@@ -36,7 +37,7 @@ class PreferredListFragment : BaseFragment<PreferredListViewModel, FragmentPrefe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            text = it.getString(ARGS_TEXT, EMPTY_STRING)
+            errorText = it.getString(ARGS_TEXT, EMPTY_STRING)
         }
     }
 
@@ -56,13 +57,19 @@ class PreferredListFragment : BaseFragment<PreferredListViewModel, FragmentPrefe
         val playersList = uiState.playersList
 
         if (playersList.isNotEmpty()) {
+            binding.clPreferredListHeader.visibility = View.VISIBLE
+            binding.rvPreferredList.visibility = View.VISIBLE
+            binding.tvPreferredListEmptyText.visibility = View.GONE
             binding.rvPreferredList.apply {
                 val playersAdapter = RVPreferredListAdapter(playersList)
                 adapter = playersAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
         } else {
-            binding.tvPreferredListEmptyText.text = getString(R.string.search_no_results)
+            binding.clPreferredListHeader.visibility = View.GONE
+            binding.rvPreferredList.visibility = View.GONE
+            binding.tvPreferredListEmptyText.visibility = View.VISIBLE
+            binding.tvPreferredListEmptyText.text = errorText
         }
     }
 

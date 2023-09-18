@@ -24,8 +24,10 @@ class PlayersRepositoryImpl(
             val remotePlayerList = apiInterface.getPlayers()
 
             // Update database
-            daoInterface.deleteAllPlayers()
-            daoInterface.insertPlayers(remotePlayerList.map { it.toPlayerEntity() })
+            if (!remotePlayerList.isNullOrEmpty()) {
+                daoInterface.deleteAllPlayers()
+                daoInterface.insertPlayers(remotePlayerList.map { it.toPlayerEntity() })
+            }
 
             // Create local list with preferred property
             val localPlayersList = daoInterface.getPlayers().map { playerEntity ->

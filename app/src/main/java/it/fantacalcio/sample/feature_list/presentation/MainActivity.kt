@@ -31,7 +31,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(
                 when (menuItem.itemId) {
                     R.id.navigation_bar_list -> {
                         replaceFragment(
-                            PlayersListFragment.newInstance("pagina 1"),
+                            PlayersListFragment.newInstance(getString(R.string.search_no_results)),
                             PlayersListFragment.TAG,
                             containerResId = R.id.container
                         )
@@ -40,7 +40,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(
 
                     R.id.navigation_bar_preferred -> {
                         replaceFragment(
-                            PreferredListFragment.newInstance("pagina 2"),
+                            PreferredListFragment.newInstance(getString(R.string.preferred_no_results)),
                             PreferredListFragment.TAG,
                             containerResId = R.id.container
                         )

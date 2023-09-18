@@ -20,7 +20,7 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
     PlayersListViewModel::class.java
 ) {
 
-    private lateinit var text: String
+    private lateinit var errorText: String
 
     companion object {
 
@@ -40,7 +40,7 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            text = it.getString(ARGS_TEXT, EMPTY_STRING)
+            errorText = it.getString(ARGS_TEXT, EMPTY_STRING)
         }
     }
 
@@ -91,6 +91,8 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
     }
 
     private fun showOrderedPlayersList(uiState: PlayersListState) {
+        binding.rvPlayersList.visibility = View.VISIBLE
+        binding.tvPlayerListEmptyText.visibility = View.GONE
         binding.rvPlayersList.apply {
             val playersList = uiState.playersList
             val playersAdapter = RVPlayersListAdapter(playersList, true) { onStarClick(it) }
@@ -107,13 +109,17 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
         val playersList = uiState.playersList
 
         if (playersList.isNotEmpty()) {
+            binding.rvPlayersList.visibility = View.VISIBLE
+            binding.tvPlayerListEmptyText.visibility = View.GONE
             binding.rvPlayersList.apply {
                 val playersAdapter = RVPlayersListAdapter(playersList, false) { onStarClick(it) }
                 adapter = playersAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
         } else {
-            binding.tvPlayerListEmptyText.text = getString(R.string.search_no_results)
+            binding.rvPlayersList.visibility = View.GONE
+            binding.tvPlayerListEmptyText.visibility = View.VISIBLE
+            binding.tvPlayerListEmptyText.text = errorText
         }
     }
 
