@@ -14,7 +14,8 @@ data class PlayerEntity(
     val teamAbbreviation: String,
     val gamesPlayed: Int,
     val averageGrade: Double,
-    val averageFantaGrade: Double
+    val averageFantaGrade: Double,
+    val isPreferred: Boolean = false
 
 ) : Serializable {
 
@@ -26,7 +27,8 @@ data class PlayerEntity(
             teamAbbreviation = teamAbbreviation,
             gamesPlayed = gamesPlayed,
             averageGrade = averageGrade,
-            averageFantaGrade = averageFantaGrade
+            averageFantaGrade = averageFantaGrade,
+            isPreferred = isPreferred
         )
     }
 

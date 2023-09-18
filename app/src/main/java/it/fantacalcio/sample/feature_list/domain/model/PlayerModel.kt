@@ -10,6 +10,7 @@ data class PlayerModel(
     val teamAbbreviation: String,
     val gamesPlayed: Int,
     val averageGrade: Double,
-    val averageFantaGrade: Double
+    val averageFantaGrade: Double,
+    var isPreferred: Boolean
 
 ) : Serializable

@@ -32,7 +32,8 @@ data class PlayerResponse(
             teamAbbreviation = teamAbbreviation,
             gamesPlayed = gamesPlayed,
             averageGrade = averageGrade,
-            averageFantaGrade = averageFantaGrade
+            averageFantaGrade = averageFantaGrade,
+            isPreferred = false
         )
     }
 
@@ -44,7 +45,8 @@ data class PlayerResponse(
             teamAbbreviation = teamAbbreviation,
             gamesPlayed = gamesPlayed,
             averageGrade = averageGrade,
-            averageFantaGrade = averageFantaGrade
+            averageFantaGrade = averageFantaGrade,
+            isPreferred = false
         )
     }
 
