@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import it.fantacalcio.sample.R
 import it.fantacalcio.sample.core.extension.first
 import it.fantacalcio.sample.databinding.ItemPlayersListBinding
 import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
@@ -89,6 +90,12 @@ class PlayersListAdapter(
                     Glide.with(context)
                         .load(item.imageURL)
                         .into(ivPlayerIcon)
+
+                    if (item.isPreferred) {
+                        ivPlayerPreferred.setImageResource(R.drawable.ic_star_selected)
+                    } else {
+                        ivPlayerPreferred.setImageResource(R.drawable.ic_star_unselected)
+                    }
 
                     // if not first item check if item above has the same header
                     if (showHeader && isHeader) {
