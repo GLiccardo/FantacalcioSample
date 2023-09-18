@@ -85,16 +85,7 @@ class PlayersListAdapter(
                 with(binding) {
                     val context = root.context
 
-                    tvPlayerName.text = item.playerName
-                    tvPlayerTeam.text = item.teamAbbreviation
-
-                    Glide.with(context)
-                        .load(item.imageURL)
-                        .into(ivPlayerIcon)
-
-                    showPreferredIcon(item)
-
-                    // if not first item check if item above has the same header
+                    // Header: if not first item check if item above has the same header
                     if (showHeader && isHeader) {
                         tvPlayerHeader.text = item.playerName.first()
                         tvPlayerHeader.visibility = View.VISIBLE
@@ -102,7 +93,19 @@ class PlayersListAdapter(
                         tvPlayerHeader.visibility = View.GONE
                     }
 
-                    // Start click listener
+                    // Icon
+                    Glide.with(context)
+                        .load(item.imageURL)
+                        .into(ivPlayerIcon)
+
+                    // Texts
+                    tvPlayerName.text = item.playerName
+                    tvPlayerTeam.text = item.teamAbbreviation
+
+                    // Star icon
+                    showPreferredIcon(item)
+
+                    // Star click listener
                     ivPlayerPreferred.setOnClickListener {
                         item.isPreferred = !item.isPreferred
                         showPreferredIcon(item)

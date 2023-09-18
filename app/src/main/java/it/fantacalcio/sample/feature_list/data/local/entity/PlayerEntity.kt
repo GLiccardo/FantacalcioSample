@@ -29,6 +29,7 @@ data class PlayerEntity(
             averageGrade = averageGrade,
             averageFantaGrade = averageFantaGrade,
             isPreferred = isPreferred
+//            isPreferred = SharedManager.preferredContains(playerId)
         )
     }
 
