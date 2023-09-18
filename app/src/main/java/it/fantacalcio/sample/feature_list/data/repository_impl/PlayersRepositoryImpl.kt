@@ -48,4 +48,22 @@ class PlayersRepositoryImpl(
         }.catch { t ->
             emit(ApiResult.Error(t))
         }.flowOn(Dispatchers.IO)
+
+    override fun getPreferredPlayers(): Flow<ApiResult<List<PlayerModel>>> =
+        flow {
+            emit(ApiResult.Loading())
+
+            // Get database result
+            val playersList = daoInterface.getPlayers().map { it.toPlayerModel() }
+
+            // Filter preferred players
+            val preferredPlayers = playersList.filter { it.isPreferred }
+
+            // Return ordered results
+            val preferredPlayersOrdered = preferredPlayers.sortedBy { it.playerName }
+            emit(ApiResult.Success(preferredPlayersOrdered))
+        }.catch { t ->
+            emit(ApiResult.Error(t))
+        }.flowOn(Dispatchers.IO)
+
 }

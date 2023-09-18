@@ -4,9 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import it.fantacalcio.sample.core.network.utils.ApiResult
-import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetOrderedPlayersUseCase
-import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetSearchedPlayersUseCase
-import it.fantacalcio.sample.feature_list.presentation.players_list.PlayersListState
+import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetPreferredPlayersUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
