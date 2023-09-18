@@ -11,6 +11,7 @@ import it.fantacalcio.sample.core.extension.hideKeyboard
 import it.fantacalcio.sample.core.ui.base.BaseFragment
 import it.fantacalcio.sample.databinding.FragmentPlayersListBinding
 import it.fantacalcio.sample.feature_list.data.adapter.PlayersListAdapter
+import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
 
 @AndroidEntryPoint
 class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersListBinding>(
@@ -85,10 +86,14 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
     private fun showOrderedPlayersList(uiState: PlayersListState) {
         binding.rvPlayersList.apply {
             val playersList = uiState.playersList
-            val playersAdapter = PlayersListAdapter(playersList, true)
+            val playersAdapter = PlayersListAdapter(playersList, true) { onStarClick(it) }
             adapter = playersAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+    }
+
+    private fun onStarClick(item: PlayerModel) {
+        viewModel.updatePlayer(item)
     }
 
     private fun showSearchedPlayersList(uiState: PlayersListState) {
@@ -96,7 +101,7 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
 
         if (playersList.isNotEmpty()) {
             binding.rvPlayersList.apply {
-                val playersAdapter = PlayersListAdapter(playersList, false)
+                val playersAdapter = PlayersListAdapter(playersList, false) { onStarClick(it) }
                 adapter = playersAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }

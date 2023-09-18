@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import it.fantacalcio.sample.core.network.utils.ApiResult
+import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
 import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetOrderedPlayersUseCase
 import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetSearchedPlayersUseCase
+import it.fantacalcio.sample.feature_list.domain.use_case.player.UpdatePlayerUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayersListViewModel @Inject constructor(
     private val getOrderedPlayersUseCase: GetOrderedPlayersUseCase,
-    private val getSearchedPlayersUseCase: GetSearchedPlayersUseCase
+    private val getSearchedPlayersUseCase: GetSearchedPlayersUseCase,
+    private val updatePlayerUseCase: UpdatePlayerUseCase
 ) : ViewModel() {
 
     private val _orderedPlayersListState = MutableStateFlow(PlayersListState())
@@ -51,6 +54,24 @@ class PlayersListViewModel @Inject constructor(
     fun getSearchedPlayer(nameSubstring: String) {
         viewModelScope.launch {
             getSearchedPlayersUseCase(nameSubstring).onEach { apiResult ->
+                when (apiResult) {
+                    is ApiResult.Success -> {
+                        _searchedPlayersListState.value = PlayersListState(playersList = apiResult.data ?: emptyList())
+                    }
+                    is ApiResult.Error -> {
+                        _searchedPlayersListState.value = PlayersListState(error = apiResult.throwable?.localizedMessage ?: "An expected error is occurred")
+                    }
+                    is ApiResult.Loading -> {
+                        _searchedPlayersListState.value = PlayersListState(isLoading = true)
+                    }
+                }
+            }.launchIn(this)
+        }
+    }
+
+    fun updatePlayer(player: PlayerModel) {
+        viewModelScope.launch {
+            updatePlayerUseCase(player).onEach { apiResult ->
                 when (apiResult) {
                     is ApiResult.Success -> {
                         _searchedPlayersListState.value = PlayersListState(playersList = apiResult.data ?: emptyList())

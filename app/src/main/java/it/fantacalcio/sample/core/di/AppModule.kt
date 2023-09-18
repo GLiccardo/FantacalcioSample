@@ -12,10 +12,13 @@ import it.fantacalcio.sample.FantacalcioSampleApplication
 import it.fantacalcio.sample.core.database.DatabaseClient
 import it.fantacalcio.sample.core.network.retrofit.ApiClient
 import it.fantacalcio.sample.core.network.retrofit.ApiInterface
+import it.fantacalcio.sample.feature_list.data.repository_impl.PlayerRepositoryImpl
 import it.fantacalcio.sample.feature_list.data.repository_impl.PlayersRepositoryImpl
+import it.fantacalcio.sample.feature_list.domain.repository.PlayerRepository
 import it.fantacalcio.sample.feature_list.domain.repository.PlayersRepository
 import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetOrderedPlayersUseCase
 import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetSearchedPlayersUseCase
+import it.fantacalcio.sample.feature_list.domain.use_case.player.UpdatePlayerUseCase
 import javax.inject.Singleton
 
 @Module
@@ -67,6 +70,15 @@ object AppModule {
         return PlayersRepositoryImpl(api, db.dao)
     }
 
+    @Provides
+    @Singleton
+    fun providePlayerRepository(
+        api: ApiInterface,
+        db: DatabaseClient
+    ): PlayerRepository {
+        return PlayerRepositoryImpl(api, db.dao)
+    }
+
     /*
      * Use Cases
      */
@@ -81,6 +93,15 @@ object AppModule {
     @Singleton
     fun provideGetSearchedPlayersUseCase(repository: PlayersRepository): GetSearchedPlayersUseCase {
         return GetSearchedPlayersUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdatePlayerUseCase(
+        playerRepo: PlayerRepository,
+        playersRepo: PlayersRepository
+    ): UpdatePlayerUseCase {
+        return UpdatePlayerUseCase(playerRepo, playersRepo)
     }
 
 }

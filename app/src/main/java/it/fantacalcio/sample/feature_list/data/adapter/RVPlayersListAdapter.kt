@@ -14,7 +14,8 @@ import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
 
 class PlayersListAdapter(
     initialList: List<PlayerModel> = emptyList(),
-    private val showHeader: Boolean = false
+    private val showHeader: Boolean = false,
+    private val onStarClick: (PlayerModel) -> Unit
 ) : ListAdapter<PlayerModel, RecyclerView.ViewHolder>(diffCallback) {
 
     var list: List<PlayerModel>
@@ -103,6 +104,12 @@ class PlayersListAdapter(
                         tvPlayerHeader.visibility = View.VISIBLE
                     } else {
                         tvPlayerHeader.visibility = View.GONE
+                    }
+
+                    // Start click listener
+                    ivPlayerPreferred.setOnClickListener {
+                        item.updatePreferred()
+                        onStarClick(item)
                     }
                 }
             }
