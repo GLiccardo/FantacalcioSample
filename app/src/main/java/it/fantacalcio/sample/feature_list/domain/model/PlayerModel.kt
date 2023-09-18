@@ -29,8 +29,4 @@ data class PlayerModel(
         )
     }
 
-    fun updatePreferred() {
-        isPreferred = !isPreferred
-    }
-
 }

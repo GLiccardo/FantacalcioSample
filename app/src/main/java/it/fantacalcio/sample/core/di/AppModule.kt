@@ -97,11 +97,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUpdatePlayerUseCase(
-        playerRepo: PlayerRepository,
-        playersRepo: PlayersRepository
-    ): UpdatePlayerUseCase {
-        return UpdatePlayerUseCase(playerRepo, playersRepo)
+    fun provideUpdatePlayerUseCase(playerRepo: PlayerRepository): UpdatePlayerUseCase {
+        return UpdatePlayerUseCase(playerRepo)
     }
 
 }

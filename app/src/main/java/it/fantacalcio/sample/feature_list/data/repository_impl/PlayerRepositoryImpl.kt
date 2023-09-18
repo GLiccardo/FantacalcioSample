@@ -16,20 +16,11 @@ class PlayerRepositoryImpl(
     private val daoInterface: DaoInterface
 ) : PlayerRepository {
 
-    override fun updatePlayer(player: PlayerModel): Flow<ApiResult<List<PlayerModel>>> =
+    override fun updatePlayer(player: PlayerModel): Flow<ApiResult<Boolean>> =
         flow {
             emit(ApiResult.Loading())
-
-            // Update database
             daoInterface.updatePlayer(player.toPlayerEntity())
-
-            // Get updated database results
-            val databasePlayerList = daoInterface.getPlayers()
-            val localPlayersList = databasePlayerList.map { it.toPlayerModel() }
-
-            // Return oredered results
-            val localPlayersListOrdered = localPlayersList.sortedBy { it.playerName }
-            emit(ApiResult.Success(localPlayersListOrdered))
+            emit(ApiResult.Success(true))
         }.catch { t ->
             emit(ApiResult.Error(t))
         }.flowOn(Dispatchers.IO)

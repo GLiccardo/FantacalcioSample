@@ -92,11 +92,7 @@ class PlayersListAdapter(
                         .load(item.imageURL)
                         .into(ivPlayerIcon)
 
-                    if (item.isPreferred) {
-                        ivPlayerPreferred.setImageResource(R.drawable.ic_star_selected)
-                    } else {
-                        ivPlayerPreferred.setImageResource(R.drawable.ic_star_unselected)
-                    }
+                    showPreferredIcon(item)
 
                     // if not first item check if item above has the same header
                     if (showHeader && isHeader) {
@@ -108,10 +104,19 @@ class PlayersListAdapter(
 
                     // Start click listener
                     ivPlayerPreferred.setOnClickListener {
-                        item.updatePreferred()
+                        item.isPreferred = !item.isPreferred
+                        showPreferredIcon(item)
                         onStarClick(item)
                     }
                 }
+            }
+        }
+
+        private fun showPreferredIcon(item: PlayerModel) {
+            if (item.isPreferred) {
+                binding.ivPlayerPreferred.setImageResource(R.drawable.ic_star_selected)
+            } else {
+                binding.ivPlayerPreferred.setImageResource(R.drawable.ic_star_unselected)
             }
         }
 

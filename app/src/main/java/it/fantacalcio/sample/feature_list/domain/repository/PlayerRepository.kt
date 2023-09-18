@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface PlayerRepository {
 
-    fun updatePlayer(player: PlayerModel): Flow<ApiResult<List<PlayerModel>>>
+    fun updatePlayer(player: PlayerModel): Flow<ApiResult<Boolean>>
 
 }

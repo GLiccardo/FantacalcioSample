@@ -2,6 +2,7 @@ package it.fantacalcio.sample.feature_list.presentation.players_list
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import it.fantacalcio.sample.R
@@ -80,6 +81,12 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
         viewModel.searchedPlayersListState.collectLA(viewLifecycleOwner) { uiState ->
             hideKeyboard()
             showSearchedPlayersList(uiState)
+        }
+
+        viewModel.preferredListState.collectLA(viewLifecycleOwner) { uiState ->
+            if (uiState) {
+                Toast.makeText(requireContext(), "Aggiornato", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

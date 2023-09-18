@@ -29,6 +29,9 @@ class PlayersListViewModel @Inject constructor(
     private val _searchedPlayersListState = MutableStateFlow(PlayersListState())
     val searchedPlayersListState: StateFlow<PlayersListState> = _searchedPlayersListState.asStateFlow()
 
+    private val _preferredListState = MutableStateFlow(false)
+    val preferredListState: StateFlow<Boolean> = _preferredListState.asStateFlow()
+
 //    init {
 //        getPlayers()
 //    }
@@ -69,18 +72,21 @@ class PlayersListViewModel @Inject constructor(
         }
     }
 
-    fun updatePlayer(player: PlayerModel) {
+    fun updatePlayer(
+        player: PlayerModel,
+        nameSubstring: String? = null
+    ) {
         viewModelScope.launch {
-            updatePlayerUseCase(player).onEach { apiResult ->
+            updatePlayerUseCase(player, nameSubstring).onEach { apiResult ->
                 when (apiResult) {
                     is ApiResult.Success -> {
-                        _searchedPlayersListState.value = PlayersListState(playersList = apiResult.data ?: emptyList())
+                        _preferredListState.value = apiResult.data == true
                     }
                     is ApiResult.Error -> {
-                        _searchedPlayersListState.value = PlayersListState(error = apiResult.throwable?.localizedMessage ?: "An expected error is occurred")
+                        _preferredListState.value = false
                     }
                     is ApiResult.Loading -> {
-                        _searchedPlayersListState.value = PlayersListState(isLoading = true)
+                        _preferredListState.value = false
                     }
                 }
             }.launchIn(this)
