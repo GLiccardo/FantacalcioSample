@@ -2,7 +2,6 @@ package it.fantacalcio.sample.feature_list.presentation.players_list
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import it.fantacalcio.sample.R
@@ -13,6 +12,7 @@ import it.fantacalcio.sample.core.ui.base.BaseFragment
 import it.fantacalcio.sample.databinding.FragmentPlayersListBinding
 import it.fantacalcio.sample.feature_list.data.adapter.RVPlayersListAdapter
 import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
+import timber.log.Timber
 
 @AndroidEntryPoint
 class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersListBinding>(
@@ -85,7 +85,7 @@ class PlayersListFragment : BaseFragment<PlayersListViewModel, FragmentPlayersLi
 
         viewModel.preferredListState.collectLA(viewLifecycleOwner) { uiState ->
             if (uiState) {
-                Toast.makeText(requireContext(), "Aggiornato", Toast.LENGTH_SHORT).show()
+                Timber.d("Player aggiornato nella lista dei preferiti")
             }
         }
     }
