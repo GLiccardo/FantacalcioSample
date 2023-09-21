@@ -7,4 +7,5 @@ data class PreferredListState(
     val isLoading: Boolean = false,
     val error: String = EMPTY_STRING,
     val playersList: List<PlayerModel> = emptyList()
+//    var isPremiumActive: Boolean = false
 )

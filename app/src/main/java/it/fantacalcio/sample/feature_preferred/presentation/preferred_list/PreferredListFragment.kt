@@ -19,6 +19,10 @@ class PreferredListFragment : BaseFragment<PreferredListViewModel, FragmentPrefe
 
     private lateinit var errorText: String
 
+    val preferredAdapter: RVPreferredListAdapter by lazy {
+        RVPreferredListAdapter(emptyList())
+    }
+
     companion object {
 
         val TAG: String = PreferredListFragment::class.java.name
@@ -41,6 +45,26 @@ class PreferredListFragment : BaseFragment<PreferredListViewModel, FragmentPrefe
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRV()
+        setupListeners()
+    }
+
+    private fun setupRV() {
+        binding.rvPreferredList.apply {
+            adapter = preferredAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun setupListeners() {
+        // Search icon
+        binding.cvUnlockPremium.setOnClickListener {
+            viewModel.unlockPremium()
+        }
+    }
+
     override fun loadData() {
         super.loadData()
         viewModel.getPreferredPlayers()
@@ -51,6 +75,24 @@ class PreferredListFragment : BaseFragment<PreferredListViewModel, FragmentPrefe
         viewModel.preferredListState.collectLA(viewLifecycleOwner) { uiState ->
             showPreferredPlayersList(uiState)
         }
+
+        viewModel.isPremiumActive.collectLA(viewLifecycleOwner) { isPremiumActive ->
+            updateListContent(isPremiumActive)
+            showPremiumButton(isPremiumActive)
+        }
+    }
+
+    private fun updateListContent(isPremiumActive: Boolean) {
+        preferredAdapter.updateContent(isPremiumActive)
+        preferredAdapter.notifyItemRangeChanged(0, preferredAdapter.itemCount)
+    }
+
+    private fun showPremiumButton(isPremiumActive: Boolean) {
+        if (isPremiumActive) {
+            binding.cvUnlockPremium.visibility = View.GONE
+        } else {
+            binding.cvUnlockPremium.visibility = View.VISIBLE
+        }
     }
 
     private fun showPreferredPlayersList(uiState: PreferredListState) {
@@ -60,11 +102,7 @@ class PreferredListFragment : BaseFragment<PreferredListViewModel, FragmentPrefe
             binding.clPreferredListHeader.visibility = View.VISIBLE
             binding.rvPreferredList.visibility = View.VISIBLE
             binding.tvPreferredListEmptyText.visibility = View.GONE
-            binding.rvPreferredList.apply {
-                val playersAdapter = RVPreferredListAdapter(playersList)
-                adapter = playersAdapter
-                layoutManager = LinearLayoutManager(requireContext())
-            }
+            preferredAdapter.list = playersList
         } else {
             binding.clPreferredListHeader.visibility = View.GONE
             binding.rvPreferredList.visibility = View.GONE

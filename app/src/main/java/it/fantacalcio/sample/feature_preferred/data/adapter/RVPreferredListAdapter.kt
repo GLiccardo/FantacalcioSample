@@ -1,6 +1,7 @@
 package it.fantacalcio.sample.feature_preferred.data.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +11,8 @@ import it.fantacalcio.sample.databinding.ItemPreferredListBinding
 import it.fantacalcio.sample.feature_list.domain.model.PlayerModel
 
 class RVPreferredListAdapter(
-    initialList: List<PlayerModel> = emptyList()
+    initialList: List<PlayerModel> = emptyList(),
+    private var isPremiumActive: Boolean = false
 ) : ListAdapter<PlayerModel, RecyclerView.ViewHolder>(diffCallback) {
 
     var list: List<PlayerModel>
@@ -21,6 +23,11 @@ class RVPreferredListAdapter(
 
     init {
         list = initialList
+    }
+
+    fun updateContent(isPremiumActive: Boolean) {
+        this.isPremiumActive = isPremiumActive
+//        submitList(list)
     }
 
     /*
@@ -82,6 +89,23 @@ class RVPreferredListAdapter(
                     tvPreferredListHeaderPg.text = item.gamesPlayed.toString()
                     tvPreferredListHeaderMv.text = item.averageGrade.toString()
                     tvPreferredListHeaderMfv.text = item.averageFantaGrade.toString()
+
+                    // Visibility
+                    if (isPremiumActive) {
+                        tvPreferredListHeaderPg.visibility = View.VISIBLE
+                        tvPreferredListHeaderMv.visibility = View.VISIBLE
+                        tvPreferredListHeaderMfv.visibility = View.VISIBLE
+                        ivPreferredListHeaderPg.visibility = View.INVISIBLE
+                        ivPreferredListHeaderMv.visibility = View.INVISIBLE
+                        ivPreferredListHeaderMfv.visibility = View.INVISIBLE
+                    } else {
+                        ivPreferredListHeaderPg.visibility = View.VISIBLE
+                        ivPreferredListHeaderMv.visibility = View.VISIBLE
+                        ivPreferredListHeaderMfv.visibility = View.VISIBLE
+                        tvPreferredListHeaderPg.visibility = View.INVISIBLE
+                        tvPreferredListHeaderMv.visibility = View.INVISIBLE
+                        tvPreferredListHeaderMfv.visibility = View.INVISIBLE
+                    }
                 }
             }
         }

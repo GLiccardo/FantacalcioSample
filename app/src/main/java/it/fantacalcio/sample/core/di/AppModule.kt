@@ -12,12 +12,13 @@ import it.fantacalcio.sample.FantacalcioSampleApplication
 import it.fantacalcio.sample.core.database.DatabaseClient
 import it.fantacalcio.sample.core.network.retrofit.ApiClient
 import it.fantacalcio.sample.core.network.retrofit.ApiInterface
-import it.fantacalcio.sample.feature_preferred.data.repository_impl.PlayerRepositoryImpl
+import it.fantacalcio.sample.core.sharedpref.SharedPrefManager
 import it.fantacalcio.sample.feature_list.data.repository_impl.PlayersRepositoryImpl
-import it.fantacalcio.sample.feature_preferred.domain.repository.PlayerRepository
 import it.fantacalcio.sample.feature_list.domain.repository.PlayersRepository
 import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetOrderedPlayersUseCase
 import it.fantacalcio.sample.feature_list.domain.use_case.get_players.GetSearchedPlayersUseCase
+import it.fantacalcio.sample.feature_preferred.data.repository_impl.PlayerRepositoryImpl
+import it.fantacalcio.sample.feature_preferred.domain.repository.PlayerRepository
 import it.fantacalcio.sample.feature_preferred.domain.use_case.player.UpdatePlayerUseCase
 import javax.inject.Singleton
 
@@ -55,6 +56,12 @@ object AppModule {
             DatabaseClient::class.java,
             DatabaseClient.DATABASE_NAME
         ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPrefManager {
+        return SharedPrefManager(context)
     }
 
     /*

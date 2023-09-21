@@ -88,11 +88,23 @@
                     android:textColor="@color/text_grey"
                     android:textSize="@dimen/item_header_label_text_size"
                     android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_preferred_list_header_mv"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="@dimen/item_stat_width"
-                    tools:text="7,65" />
+                    tools:text="7,65"
+                    tools:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_preferred_list_header_pg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_preferred_list_header_pg"
+                    app:layout_constraintEnd_toEndOf="@id/tv_preferred_list_header_pg"
+                    app:layout_constraintStart_toStartOf="@id/tv_preferred_list_header_pg"
+                    app:layout_constraintTop_toTopOf="@id/tv_preferred_list_header_pg"
+                    app:srcCompat="@drawable/ic_stat_locked" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_preferred_list_header_mv"
@@ -103,11 +115,23 @@
                     android:textColor="@color/text_grey"
                     android:textSize="@dimen/item_header_label_text_size"
                     android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_preferred_list_header_mfv"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="@dimen/item_stat_width"
-                    tools:text="8,98" />
+                    tools:text="8,98"
+                    tools:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_preferred_list_header_mv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_preferred_list_header_mv"
+                    app:layout_constraintEnd_toEndOf="@id/tv_preferred_list_header_mv"
+                    app:layout_constraintStart_toStartOf="@id/tv_preferred_list_header_mv"
+                    app:layout_constraintTop_toTopOf="@id/tv_preferred_list_header_mv"
+                    app:srcCompat="@drawable/ic_stat_locked" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_preferred_list_header_mfv"
@@ -117,11 +141,23 @@
                     android:textColor="@color/text_grey"
                     android:textSize="@dimen/item_header_label_text_size"
                     android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="@dimen/item_stat_width"
-                    tools:text="7,00" />
+                    tools:text="7,00"
+                    tools:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_preferred_list_header_mfv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_preferred_list_header_mfv"
+                    app:layout_constraintEnd_toEndOf="@id/tv_preferred_list_header_mfv"
+                    app:layout_constraintStart_toStartOf="@id/tv_preferred_list_header_mfv"
+                    app:layout_constraintTop_toTopOf="@id/tv_preferred_list_header_mfv"
+                    app:srcCompat="@drawable/ic_stat_locked" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -104,7 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/cv_unlock_premium"
             app:layout_constraintTop_toBottomOf="@+id/cl_preferred_list_header"
             tools:itemCount="12"
             tools:listitem="@layout/item_preferred_list" />
@@ -123,13 +124,11 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/unlock_premium_height"
             android:layout_marginHorizontal="@dimen/unlock_premium_margin"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone"
+            android:layout_marginBottom="8dp"
             app:cardBackgroundColor="@color/blue"
             app:cardCornerRadius="@dimen/unlock_premium_corner_radius"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="visible">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
